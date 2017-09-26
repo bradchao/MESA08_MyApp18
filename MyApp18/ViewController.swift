@@ -9,17 +9,36 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private let plist = NSHomeDirectory() + "/Documents/appdata.plist"
 
+    @IBOutlet weak var labelUsername: UILabel!
+    @IBAction func changePList(_ sender: Any) {
+        let data = NSMutableDictionary(contentsOfFile: plist)
+        
+        data!["username"] = "Brad"
+        
+        if (data?.write(toFile: plist, atomically: true))! {
+            print("change OK")
+        }else{
+            print("change XX")
+        }
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+        
+        let data = NSMutableDictionary(contentsOfFile: plist)
+        print("UserName: \(data!["username"]!)")
+        print("Stage: \(data!["stage"]!)")
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        labelUsername.text = data!["username"] as! String
+        
+        
+        
+        
     }
-
 
 }
 

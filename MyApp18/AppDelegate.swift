@@ -15,7 +15,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let fmgr = FileManager.default
+        
+        let src = Bundle.main.path(forResource: "appdata", ofType: "plist")
+        let target = NSHomeDirectory() + "/Documents/appdata.plist"
+        
+        if !fmgr.fileExists(atPath: target) {
+            try! fmgr.copyItem(atPath: src!, toPath: target)
+            print(NSHomeDirectory())
+        }else{
+            print("file exist")
+        }
+        
+        
+        
         return true
     }
 
