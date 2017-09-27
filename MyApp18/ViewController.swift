@@ -17,17 +17,30 @@ class ViewController: UIViewController {
         
         data!["username"] = "Brad"
         
+        //atomically:true => 暫存檔; false: 立即
+        if (data?.write(toFile: plist, atomically: false))! {
+            print("change OK")
+        }else{
+            print("change XX")
+        }
+    }
+
+    func addData(){
+        let data = NSMutableDictionary(contentsOfFile: plist)
+        
+        data!["data"] = "iii"
+        
         if (data?.write(toFile: plist, atomically: true))! {
             print("change OK")
         }else{
             print("change XX")
         }
-        
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(NSHomeDirectory())
         
         let data = NSMutableDictionary(contentsOfFile: plist)
         print("UserName: \(data!["username"]!)")
@@ -35,6 +48,7 @@ class ViewController: UIViewController {
 
         labelUsername.text = data!["username"] as! String
         
+        addData()
         
         
         
